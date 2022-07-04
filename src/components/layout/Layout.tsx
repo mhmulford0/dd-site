@@ -1,21 +1,13 @@
-import { Dialog, Menu, Transition } from '@headlessui/react';
-import {
-  ClockIcon,
-  HomeIcon,
-  MenuAlt1Icon,
-  XIcon,
-} from '@heroicons/react/outline';
-import { ChevronRightIcon, DotsVerticalIcon } from '@heroicons/react/solid';
+import { Dialog, Transition } from '@headlessui/react';
+import { HomeIcon, MenuAlt1Icon, XIcon } from '@heroicons/react/outline';
+import { ChevronRightIcon } from '@heroicons/react/solid';
 import { Fragment, useState } from 'react';
 
-const navigation = [
-  { name: 'Home', href: '#', icon: HomeIcon, current: true },
-  { name: 'Recent', href: '#', icon: ClockIcon, current: false },
-];
+const navigation = [{ name: 'Home', href: '#', icon: HomeIcon, current: true }];
 const teams = [
-  { name: 'Engineering', href: '#', bgColorClass: 'bg-indigo-500' },
-  { name: 'Human Resources', href: '#', bgColorClass: 'bg-green-500' },
-  { name: 'Customer Success', href: '#', bgColorClass: 'bg-yellow-500' },
+  { name: 'Development', href: '#', bgColorClass: 'bg-indigo-500' },
+  { name: 'Marketing', href: '#', bgColorClass: 'bg-green-500' },
+  { name: 'Governance', href: '#', bgColorClass: 'bg-yellow-500' },
 ];
 const projects = [
   {
@@ -58,7 +50,7 @@ const projects = [
 ];
 const pinnedProjects = projects.filter((project) => project.pinned);
 
-function classNames(...classes) {
+function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ');
 }
 
@@ -122,7 +114,7 @@ export default function Example() {
                 <div className='flex flex-shrink-0 items-center px-4'>
                   <img
                     className='h-8 w-auto'
-                    src='/images/dd-logo.png'
+                    src='/images/dd-logo.jpeg'
                     alt='Workflow'
                   />
                 </div>
@@ -284,36 +276,22 @@ export default function Example() {
             <MenuAlt1Icon className='h-6 w-6' aria-hidden='true' />
           </button>
           <div className='flex flex-1 justify-between px-4 sm:px-6 lg:px-8'>
-            <div className='flex items-center'>{/* Profile dropdown */}</div>
+            <div className='flex items-center'>Home</div>
           </div>
         </div>
         <main className='flex-1'>
           {/* Page title & actions */}
-          <div className='border-b border-gray-200 px-4 py-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8'>
+          <div className='hidden border-b border-gray-200 px-4 py-4 sm:items-center sm:justify-between sm:px-6 md:flex lg:px-8'>
             <div className='min-w-0 flex-1'>
-              <h1 className='text-lg font-medium leading-6 text-gray-900 sm:truncate'>
+              <h1 className='text-lg font-medium leading-6 text-gray-900'>
                 Home
               </h1>
-            </div>
-            <div className='mt-4 flex sm:mt-0 sm:ml-4'>
-              <button
-                type='button'
-                className='sm:order-0 order-1 ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 sm:ml-0'
-              >
-                Share
-              </button>
-              <button
-                type='button'
-                className='order-0 inline-flex items-center rounded-md border border-transparent bg-purple-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 sm:order-1 sm:ml-3'
-              >
-                Create
-              </button>
             </div>
           </div>
           {/* Pinned projects */}
           <div className='mt-6 px-4 sm:px-6 lg:px-8'>
             <h2 className='text-xs font-medium uppercase tracking-wide text-gray-500'>
-              Pinned Projects
+              Project Spotlight
             </h2>
             <ul
               role='list'
@@ -344,76 +322,6 @@ export default function Example() {
                         {project.totalMembers} Members
                       </p>
                     </div>
-                    <Menu as='div' className='flex-shrink-0 pr-2'>
-                      <Menu.Button className='inline-flex h-8 w-8 items-center justify-center rounded-full bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2'>
-                        <span className='sr-only'>Open options</span>
-                        <DotsVerticalIcon
-                          className='h-5 w-5'
-                          aria-hidden='true'
-                        />
-                      </Menu.Button>
-                      <Transition
-                        as={Fragment}
-                        enter='transition ease-out duration-100'
-                        enterFrom='transform opacity-0 scale-95'
-                        enterTo='transform opacity-100 scale-100'
-                        leave='transition ease-in duration-75'
-                        leaveFrom='transform opacity-100 scale-100'
-                        leaveTo='transform opacity-0 scale-95'
-                      >
-                        <Menu.Items className='absolute right-10 top-3 z-10 mx-3 mt-1 w-48 origin-top-right divide-y divide-gray-200 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none'>
-                          <div className='py-1'>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href='#'
-                                  className={classNames(
-                                    active
-                                      ? 'bg-gray-100 text-gray-900'
-                                      : 'text-gray-700',
-                                    'block px-4 py-2 text-sm'
-                                  )}
-                                >
-                                  View
-                                </a>
-                              )}
-                            </Menu.Item>
-                          </div>
-                          <div className='py-1'>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href='#'
-                                  className={classNames(
-                                    active
-                                      ? 'bg-gray-100 text-gray-900'
-                                      : 'text-gray-700',
-                                    'block px-4 py-2 text-sm'
-                                  )}
-                                >
-                                  Removed from pinned
-                                </a>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <a
-                                  href='#'
-                                  className={classNames(
-                                    active
-                                      ? 'bg-gray-100 text-gray-900'
-                                      : 'text-gray-700',
-                                    'block px-4 py-2 text-sm'
-                                  )}
-                                >
-                                  Share
-                                </a>
-                              )}
-                            </Menu.Item>
-                          </div>
-                        </Menu.Items>
-                      </Transition>
-                    </Menu>
                   </div>
                 </li>
               ))}
@@ -469,25 +377,25 @@ export default function Example() {
                 <thead>
                   <tr className='border-t border-gray-200'>
                     <th
-                      className='border-b border-gray-200 bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500'
+                      className='text-md border-b border-gray-200 bg-gray-50 px-6 py-3 text-left font-medium uppercase tracking-wider text-gray-800'
                       scope='col'
                     >
                       <span className='lg:pl-2'>Project</span>
                     </th>
                     <th
-                      className='border-b border-gray-200 bg-gray-50 px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500'
+                      className='text-md border-b border-gray-200 bg-gray-50 px-6 py-3 text-left font-medium uppercase tracking-wider text-gray-800'
                       scope='col'
                     >
-                      Members
+                      Status
                     </th>
                     <th
-                      className='hidden border-b border-gray-200 bg-gray-50 px-6 py-3 text-right text-xs font-medium uppercase tracking-wider text-gray-500 md:table-cell'
+                      className='text-md hidden border-b border-gray-200 bg-gray-50 px-6 py-3 text-right font-medium uppercase tracking-wider text-gray-800 md:table-cell'
                       scope='col'
                     >
-                      Last updated
+                      Updated
                     </th>
                     <th
-                      className='border-b border-gray-200 bg-gray-50 py-3 pr-6 text-right text-xs font-medium uppercase tracking-wider text-gray-500'
+                      className='border-b border-gray-200 bg-gray-50 py-3 pr-6 text-right text-xs font-medium uppercase tracking-wider text-gray-800'
                       scope='col'
                     />
                   </tr>
@@ -495,7 +403,7 @@ export default function Example() {
                 <tbody className='divide-y divide-gray-100 bg-white'>
                   {projects.map((project) => (
                     <tr key={project.id}>
-                      <td className='w-full max-w-0 whitespace-nowrap px-6 py-3 text-sm font-medium text-gray-900'>
+                      <td className='text-md w-full max-w-0 whitespace-nowrap px-6 py-3 font-medium text-gray-900'>
                         <div className='flex items-center space-x-3 lg:pl-2'>
                           <div
                             className={classNames(
@@ -517,32 +425,12 @@ export default function Example() {
                       <td className='px-6 py-3 text-sm font-medium text-gray-500'>
                         <div className='flex items-center space-x-2'>
                           <div className='flex flex-shrink-0 -space-x-1'>
-                            {project.members.map((member) => (
-                              <img
-                                key={member.handle}
-                                className='h-6 w-6 max-w-none rounded-full ring-2 ring-white'
-                                src={member.imageUrl}
-                                alt={member.name}
-                              />
-                            ))}
+                            Active
                           </div>
-                          {project.totalMembers > project.members.length ? (
-                            <span className='flex-shrink-0 text-xs font-medium leading-5'>
-                              +{project.totalMembers - project.members.length}
-                            </span>
-                          ) : null}
                         </div>
                       </td>
                       <td className='hidden whitespace-nowrap px-6 py-3 text-right text-sm text-gray-500 md:table-cell'>
                         {project.lastUpdated}
-                      </td>
-                      <td className='whitespace-nowrap px-6 py-3 text-right text-sm font-medium'>
-                        <a
-                          href='#'
-                          className='text-indigo-600 hover:text-indigo-900'
-                        >
-                          Edit
-                        </a>
                       </td>
                     </tr>
                   ))}
