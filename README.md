@@ -1,4 +1,4 @@
-[Based Off](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter) 👈 for more.
+Based off [this starter](https://github.com/theodorusclarence/ts-nextjs-tailwind-starter)
 
 ## Getting Started
 

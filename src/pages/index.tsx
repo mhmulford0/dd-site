@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 import Layout from '@/components/layout/Layout';
 
 /**
@@ -15,9 +13,5 @@ import Layout from '@/components/layout/Layout';
 // to customize the default configuration.
 
 export default function HomePage() {
-  return (
-    <Layout>
-      <main></main>
-    </Layout>
-  );
+  return <Layout />;
 }
