@@ -40,10 +40,7 @@ export default function ProjectList() {
                     aria-hidden='true'
                   />
                   <span className='truncate text-sm font-medium leading-6'>
-                    {project.title}{' '}
-                    <span className='truncate font-normal text-gray-500'>
-                      in {/* in {project.team} */}
-                    </span>
+                    {project.attributes.name}{' '}
                   </span>
                 </span>
                 <ChevronRightIcon
