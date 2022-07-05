@@ -7,6 +7,8 @@ import Navbar from '@/components/layout/Navbar';
 import PinnedProjects from '@/components/PinnedProjects';
 import ProjectList from '@/components/ProjectList';
 
+import { Project } from '@/types';
+
 export default function Layout() {
   const { data: projects } = useQuery('projects', async () => {
     const res = await fetch(
@@ -16,8 +18,8 @@ export default function Layout() {
     return data;
   });
 
-  const pinnedProjects = projects?.data?.filter(
-    (project: Record<string, any>) => project.attributes.pinned
+  const pinnedProjects: Project[] = projects?.data?.filter(
+    (project: Project) => project.attributes.pinned
   );
 
   const [sidebarOpen, setSidebarOpen] = useState(false);

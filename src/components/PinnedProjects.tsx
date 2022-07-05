@@ -2,7 +2,9 @@ import classNames from '@/lib/className';
 
 import type { Project } from '@/types';
 
-export default function PinnedProjects(pinnedProjects: Project[]) {
+export default function PinnedProjects({
+  pinnedProjects,
+}: Record<string, Project[]>) {
   return (
     <div className='mt-6 px-4 sm:px-6 lg:px-8'>
       <h2 className='text-xs font-medium uppercase tracking-wide text-gray-500'>
