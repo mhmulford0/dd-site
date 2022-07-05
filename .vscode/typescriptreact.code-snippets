@@ -16,11 +16,7 @@
   },
   "React.useReducer": {
     "prefix": "ur",
-    "body": [
-      "const [state, dispatch] = React.useReducer(${0:someReducer}, {",
-      "  ",
-      "})"
-    ]
+    "body": ["const [state, dispatch] = React.useReducer(${0:someReducer}, {", "  ", "})"]
   },
   "React.useRef": {
     "prefix": "urf",

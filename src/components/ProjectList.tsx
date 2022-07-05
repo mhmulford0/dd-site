@@ -8,9 +8,7 @@ import type { Project } from '@/types';
 
 export default function ProjectList() {
   const { data: projects } = useQuery('projects', async () => {
-    const res = await fetch(
-      'http://localhost:1337/api/projects?populate=guilds'
-    );
+    const res = await fetch('http://localhost:1337/api/projects?populate=guilds');
     const data = await res.json();
     return data;
   });
@@ -117,9 +115,7 @@ export default function ProjectList() {
                     </div>
                   </td>
                   <td className='hidden whitespace-nowrap px-6 py-3 text-right text-sm text-gray-500 md:table-cell'>
-                    {new Date(project.attributes.updatedAt).toLocaleDateString(
-                      'en-us'
-                    )}
+                    {new Date(project.attributes.updatedAt).toLocaleDateString('en-us')}
                   </td>
                 </tr>
               ))}

@@ -22,11 +22,7 @@ export default function Navbar({ setSidebarOpen, sidebarOpen }: Props) {
   return (
     <>
       <Transition.Root show={sidebarOpen} as={Fragment}>
-        <Dialog
-          as='div'
-          className='relative z-40 lg:hidden'
-          onClose={setSidebarOpen}
-        >
+        <Dialog as='div' className='relative z-40 lg:hidden' onClose={setSidebarOpen}>
           <Transition.Child
             as={Fragment}
             enter='transition-opacity ease-linear duration-300'
@@ -66,19 +62,12 @@ export default function Navbar({ setSidebarOpen, sidebarOpen }: Props) {
                       onClick={() => setSidebarOpen(false)}
                     >
                       <span className='sr-only'>Close sidebar</span>
-                      <XIcon
-                        className='h-6 w-6 text-white'
-                        aria-hidden='true'
-                      />
+                      <XIcon className='h-6 w-6 text-white' aria-hidden='true' />
                     </button>
                   </div>
                 </Transition.Child>
                 <div className='flex flex-shrink-0 items-center px-4'>
-                  <img
-                    className='h-8 w-auto'
-                    src='/images/dd-logo.jpeg'
-                    alt='Workflow'
-                  />
+                  <img className='h-8 w-auto' src='/images/dd-logo.jpeg' alt='Workflow' />
                 </div>
                 <div className='mt-5 h-0 flex-1 overflow-y-auto'>
                   <nav className='px-2'>
@@ -152,11 +141,7 @@ export default function Navbar({ setSidebarOpen, sidebarOpen }: Props) {
       {/* Static sidebar for desktop */}
       <div className='hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col lg:border-r lg:border-gray-200 lg:bg-gray-100 lg:pt-5 lg:pb-4'>
         <div className='mr-4 flex flex-shrink-0 items-center px-4'>
-          <img
-            className='h-8 w-auto'
-            src='/images/dd-logo.jpeg'
-            alt='Workflow'
-          />
+          <img className='h-8 w-auto' src='/images/dd-logo.jpeg' alt='Workflow' />
           <h4 className='ml-4'>Developer DAO</h4>
         </div>
         {/* Sidebar component, swap this element with another sidebar if you like */}

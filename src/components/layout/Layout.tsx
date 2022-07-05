@@ -11,9 +11,7 @@ import { Project } from '@/types';
 
 export default function Layout() {
   const { data: projects } = useQuery('projects', async () => {
-    const res = await fetch(
-      'http://localhost:1337/api/projects?populate=guilds'
-    );
+    const res = await fetch('http://localhost:1337/api/projects?populate=guilds');
     const data = await res.json();
     return data;
   });
@@ -47,9 +45,7 @@ export default function Layout() {
           {/* Page title & actions */}
           <div className='hidden border-b border-gray-200 px-4 py-4 sm:items-center sm:justify-between sm:px-6 md:flex lg:px-8'>
             <div className='min-w-0 flex-1'>
-              <h1 className='text-lg font-medium leading-6 text-gray-900'>
-                Projects
-              </h1>
+              <h1 className='text-lg font-medium leading-6 text-gray-900'>Projects</h1>
             </div>
           </div>
 
