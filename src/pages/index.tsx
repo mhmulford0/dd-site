@@ -1,17 +1,31 @@
-import Layout from '@/components/layout/Layout';
+import { useQuery } from 'react-query';
 
-/**
- * SVGR Support
- * Caveat: No React Props Type.
- *
- * You can override the next-env if the type is important to you
- * @see https://stackoverflow.com/questions/68103844/how-to-override-next-js-svg-module-declaration
- */
+import PinnedProjects from '@/components/PinnedProjects';
+import ProjectList from '@/components/ProjectList';
 
-// !STARTERCONF -> Select !STARTERCONF and CMD + SHIFT + F
-// Before you begin editing, follow all comments with `STARTERCONF`,
-// to customize the default configuration.
+import { Project } from '@/types';
 
 export default function HomePage() {
-  return <Layout />;
+  const { data: projects } = useQuery('projects', async () => {
+    const res = await fetch('http://localhost:1337/api/projects?populate=guilds');
+    const data = await res.json();
+    return data;
+  });
+
+  const pinnedProjects: Project[] = projects?.data?.filter(
+    (project: Project) => project.attributes.pinned
+  );
+  return (
+    <>
+      <div className='hidden border-b border-gray-200 px-4 py-4 sm:items-center sm:justify-between sm:px-6 md:flex lg:px-8'>
+        <div className='min-w-0 flex-1'>
+          <h1 className='text-lg font-medium leading-6 text-gray-900'>Projects</h1>
+        </div>
+      </div>
+
+      <PinnedProjects pinnedProjects={pinnedProjects} />
+
+      <ProjectList />
+    </>
+  );
 }

@@ -1,25 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { MenuAlt1Icon } from '@heroicons/react/outline';
-import { useState } from 'react';
-import { useQuery } from 'react-query';
+import React, { ReactNode, useState } from 'react';
 
 import Navbar from '@/components/layout/Navbar';
-import PinnedProjects from '@/components/PinnedProjects';
-import ProjectList from '@/components/ProjectList';
 
-import { Project } from '@/types';
+interface Props {
+  children: ReactNode;
+}
 
-export default function Layout() {
-  const { data: projects } = useQuery('projects', async () => {
-    const res = await fetch('http://localhost:1337/api/projects?populate=guilds');
-    const data = await res.json();
-    return data;
-  });
-
-  const pinnedProjects: Project[] = projects?.data?.filter(
-    (project: Project) => project.attributes.pinned
-  );
-
+export default function Layout({ children }: Props) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -41,18 +30,7 @@ export default function Layout() {
             <div className='flex items-center'>Home</div>
           </div>
         </div>
-        <main className='flex-1'>
-          {/* Page title & actions */}
-          <div className='hidden border-b border-gray-200 px-4 py-4 sm:items-center sm:justify-between sm:px-6 md:flex lg:px-8'>
-            <div className='min-w-0 flex-1'>
-              <h1 className='text-lg font-medium leading-6 text-gray-900'>Projects</h1>
-            </div>
-          </div>
-
-          <PinnedProjects pinnedProjects={pinnedProjects} />
-
-          <ProjectList />
-        </main>
+        <main className='flex-1'>{children}</main>
       </div>
     </div>
   );
