@@ -4,6 +4,8 @@ import { useQuery } from 'react-query';
 
 import classNames from '@/lib/className';
 
+import type { Project } from '@/types';
+
 export default function ProjectList() {
   const { data: projects } = useQuery('projects', async () => {
     const res = await fetch(
@@ -25,7 +27,7 @@ export default function ProjectList() {
           role='list'
           className='mt-3 divide-y divide-gray-100 border-t border-gray-200'
         >
-          {projects?.data?.map((project: Record<string, string>) => (
+          {projects?.data?.map((project: Project) => (
             <li key={project.id}>
               <a
                 href='#'
@@ -42,7 +44,7 @@ export default function ProjectList() {
                   <span className='truncate text-sm font-medium leading-6'>
                     {project.title}{' '}
                     <span className='truncate font-normal text-gray-500'>
-                      in {project.team}
+                      in {/* in {project.team} */}
                     </span>
                   </span>
                 </span>
@@ -86,7 +88,7 @@ export default function ProjectList() {
               </tr>
             </thead>
             <tbody className='divide-y divide-gray-100 bg-white'>
-              {projects?.data.map((project: Record<string, any>) => (
+              {projects?.data.map((project: Project) => (
                 <tr key={project.id as Key}>
                   <td className='text-md w-full max-w-0 whitespace-nowrap px-6 py-4 font-medium text-gray-900'>
                     <div className='flex items-center space-x-3 lg:pl-2'>
