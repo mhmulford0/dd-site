@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Dialog, Transition } from '@headlessui/react';
 import { HomeIcon, MenuAlt1Icon, XIcon } from '@heroicons/react/outline';
 import { ChevronRightIcon } from '@heroicons/react/solid';
-import { Fragment, useState } from 'react';
+import { Fragment, Key, useState } from 'react';
+import { useQuery } from 'react-query';
 
 const navigation = [{ name: 'Home', href: '#', icon: HomeIcon, current: true }];
 const teams = [
@@ -9,11 +11,12 @@ const teams = [
   { name: 'Marketing', href: '#', bgColorClass: 'bg-green-500' },
   { name: 'Governance', href: '#', bgColorClass: 'bg-yellow-500' },
 ];
+
 const projects = [
   {
     id: 1,
-    title: 'GraphQL API',
-    initials: 'GA',
+    title: 'Development Project',
+    initials: 'DEVG',
     team: 'Engineering',
     members: [
       {
@@ -44,7 +47,7 @@ const projects = [
     totalMembers: 12,
     lastUpdated: 'March 17, 2020',
     pinned: true,
-    bgColorClass: 'bg-pink-600',
+    bgColorClass: 'bg-indigo-500',
   },
   // More projects...
 ];
@@ -55,6 +58,14 @@ function classNames(...classes: string[]) {
 }
 
 export default function Example() {
+  const { data: project } = useQuery('todos', async () => {
+    const res = await fetch(
+      'https://sea-turtle-app-6rhw6.ondigitalocean.app/api/projects'
+    );
+    const data = await res.json();
+    return data;
+  });
+
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -284,7 +295,7 @@ export default function Example() {
           <div className='hidden border-b border-gray-200 px-4 py-4 sm:items-center sm:justify-between sm:px-6 md:flex lg:px-8'>
             <div className='min-w-0 flex-1'>
               <h1 className='text-lg font-medium leading-6 text-gray-900'>
-                Home
+                Projects
               </h1>
             </div>
           </div>
@@ -401,22 +412,22 @@ export default function Example() {
                   </tr>
                 </thead>
                 <tbody className='divide-y divide-gray-100 bg-white'>
-                  {projects.map((project) => (
-                    <tr key={project.id}>
-                      <td className='text-md w-full max-w-0 whitespace-nowrap px-6 py-3 font-medium text-gray-900'>
+                  {project?.data.map((project: Record<string, any>) => (
+                    <tr key={project.id as Key}>
+                      <td className='text-md w-full max-w-0 whitespace-nowrap px-6 py-4 font-medium text-gray-900'>
                         <div className='flex items-center space-x-3 lg:pl-2'>
                           <div
                             className={classNames(
-                              project.bgColorClass,
+                              'bg-green-500',
                               'h-2.5 w-2.5 flex-shrink-0 rounded-full'
                             )}
                             aria-hidden='true'
                           />
                           <a href='#' className='truncate hover:text-gray-600'>
                             <span>
-                              {project.title}{' '}
+                              {project.attributes.name}{' '}
                               <span className='font-normal text-gray-500'>
-                                in {project.team}
+                                in Project Team
                               </span>
                             </span>
                           </a>
@@ -430,7 +441,7 @@ export default function Example() {
                         </div>
                       </td>
                       <td className='hidden whitespace-nowrap px-6 py-3 text-right text-sm text-gray-500 md:table-cell'>
-                        {project.lastUpdated}
+                        {project.updatedAt}
                       </td>
                     </tr>
                   ))}
