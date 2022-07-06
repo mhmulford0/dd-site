@@ -1,3 +1,5 @@
+/* eslint-disable simple-import-sort/imports */
+import classNames from '@/lib/className';
 import { Dialog, Transition } from '@headlessui/react';
 import { HomeIcon, XIcon } from '@heroicons/react/outline';
 import { Dispatch, Fragment, SetStateAction } from 'react';
@@ -8,16 +10,7 @@ interface Props {
   setSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ');
-}
-
 const navigation = [{ name: 'Home', href: '#', icon: HomeIcon, current: true }];
-const teams = [
-  { name: 'Development', href: '#', bgColorClass: 'bg-indigo-500' },
-  { name: 'Marketing', href: '#', bgColorClass: 'bg-green-500' },
-  { name: 'Governance', href: '#', bgColorClass: 'bg-yellow-500' },
-];
 
 export default function Navbar({ setSidebarOpen, sidebarOpen }: Props) {
   const { data: guilds } = useQuery('guilds', async () => {
@@ -115,22 +108,31 @@ export default function Navbar({ setSidebarOpen, sidebarOpen }: Props) {
                         role='group'
                         aria-labelledby='mobile-teams-headline'
                       >
-                        {teams.map((team) => (
-                          <a
-                            key={team.name}
-                            href={team.href}
-                            className='group flex items-center rounded-md px-3 py-2 text-base font-medium leading-5 text-gray-600 hover:bg-gray-50 hover:text-gray-900'
-                          >
-                            <span
-                              className={classNames(
-                                team.bgColorClass,
-                                'mr-4 h-2.5 w-2.5 rounded-full'
-                              )}
-                              aria-hidden='true'
-                            />
-                            <span className='truncate'>{team.name}</span>
-                          </a>
-                        ))}
+                        {guilds?.data?.map(
+                          ({
+                            attributes,
+                          }: Record<
+                            string,
+                            {
+                              guild_name: string;
+                            }
+                          >) => (
+                            <a
+                              key={attributes.guild_name}
+                              // href={attributes?.href}
+                              className='group flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                            >
+                              {/* <span
+                      className={classNames(
+                        attributes?.bgColorClass,
+                        'mr-4 h-2.5 w-2.5 rounded-full'
+                      )}
+                      aria-hidden='true'
+                    /> */}
+                              <span className='truncate'>{attributes.guild_name}</span>
+                            </a>
+                          )
+                        )}
                       </div>
                     </div>
                   </nav>
@@ -152,8 +154,6 @@ export default function Navbar({ setSidebarOpen, sidebarOpen }: Props) {
         </div>
         {/* Sidebar component, swap this element with another sidebar if you like */}
         <div className='mt-6 flex h-0 flex-1 flex-col overflow-y-auto'>
-          {/* User account dropdown */}
-
           {/* Navigation */}
           <nav className='mt-6 px-3'>
             <div className='space-y-1'>

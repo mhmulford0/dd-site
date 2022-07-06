@@ -7,7 +7,9 @@ import { Project } from '@/types';
 
 export default function HomePage() {
   const { data: projects } = useQuery('projects', async () => {
-    const res = await fetch('http://localhost:1337/api/projects?populate=guilds');
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/projects?populate=guilds`
+    );
     const data = await res.json();
     return data;
   });
