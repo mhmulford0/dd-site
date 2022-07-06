@@ -1,6 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react';
 import { HomeIcon, XIcon } from '@heroicons/react/outline';
 import { Dispatch, Fragment, SetStateAction } from 'react';
+import { useQuery } from 'react-query';
 
 interface Props {
   sidebarOpen: boolean;
@@ -19,6 +20,11 @@ const teams = [
 ];
 
 export default function Navbar({ setSidebarOpen, sidebarOpen }: Props) {
+  const { data: guilds } = useQuery('guilds', async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/guilds`);
+    const data = await res.json();
+    return data;
+  });
   return (
     <>
       <Transition.Root show={sidebarOpen} as={Fragment}>
@@ -189,22 +195,31 @@ export default function Navbar({ setSidebarOpen, sidebarOpen }: Props) {
                 role='group'
                 aria-labelledby='desktop-teams-headline'
               >
-                {teams.map((team) => (
-                  <a
-                    key={team.name}
-                    href={team.href}
-                    className='group flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900'
-                  >
-                    <span
+                {guilds?.data?.map(
+                  ({
+                    attributes,
+                  }: Record<
+                    string,
+                    {
+                      guild_name: string;
+                    }
+                  >) => (
+                    <a
+                      key={attributes.guild_name}
+                      // href={attributes?.href}
+                      className='group flex items-center rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                    >
+                      {/* <span
                       className={classNames(
-                        team.bgColorClass,
+                        attributes?.bgColorClass,
                         'mr-4 h-2.5 w-2.5 rounded-full'
                       )}
                       aria-hidden='true'
-                    />
-                    <span className='truncate'>{team.name}</span>
-                  </a>
-                ))}
+                    /> */}
+                      <span className='truncate'>{attributes.guild_name}</span>
+                    </a>
+                  )
+                )}
               </div>
             </div>
           </nav>
